@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <div id="addNewProduct">
+            <p>Add New Product</p><br/>
+            <form name="a">
+                <input type="text" value="" placeholder="New Product" name="p" id="newProduct"/>
+                <input type="button" id="inputNewP" value="Add" onclick="addNewProduct();"/>
+            </form>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div id="displayAllProduct">
+
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div id="editProduct">
+
+        </div>
+    </div>
+
+    <script>
+        let arrProduct = ['Sony Xperia', 'Samsung Galaxy', 'Nokia 6', 'Xiaomi Redmi Note 4', 'Apple iPhone 6S', 'Xiaomi Mi 5s Plus', 'Apple iPhone 8 Plus', 'Fujitsu F-04E'];
+        let showDivDisplay = document.getElementById('displayAllProduct');
+        let showDivEdit = document.getElementById('editProduct');
+        let messDisplay = '';
+        function showDivDisplayAllProduct(){
+            messDisplay = '<table>';
+            messDisplay += '<tr><td></td><td>Product Name</td><td></td><td></td><td>'+arrProduct.length+' products</td></tr>';
+            for (i=0;i<arrProduct.length;i++) {
+                messDisplay += '<tr><td>'+(i+1)+'</td><td>'+arrProduct[i]+'</td><td>';
+                messDisplay += '<input type="button" value="Edit" onclick="showDivEditP('+i+');"/></td><td>'
+                messDisplay += '<input type="button" value="Delete" onclick="deleteProduct('+i+');" /></td></tr>';
+            }
+            messDisplay += '</table>';
+            showDivDisplay.innerHTML = messDisplay;
+        }
+
+
+        function showDivEditP(i) {
+            messDisplay = '<form name ="e">';
+            messDisplay += '<p>Edit Product</p>';
+            messDisplay += '<input type="text" value="'+arrProduct[i]+'" name="en"/>';
+            messDisplay += '<input type="button" value="Edit" onclick="editNameProduct('+i+');"/>';
+            messDisplay += '</form>';
+            showDivEdit.innerHTML = messDisplay;
+        }
+
+        function editNameProduct(i) {
+            let newName = document.forms['e']['en'].value;
+            if (newName !== arrProduct[i]) {
+                arrProduct.splice(i,1,newName);
+            }
+            showDivDisplayAllProduct();
+            showDivEdit.innerHTML = '  ';
+        }
+
+        function deleteProduct(i) {
+            let fgg = confirm('Chac chan chu');
+            if (fgg){
+                arrProduct.splice(i,1);
+                showDivDisplayAllProduct();
+
+            }
+        }
+
+        function addNewProduct() {
+            let inputP = document.forms['a']['p'].value;
+            let fg = true;
+            if (inputP !== ''){
+                for (i = 0; i < arrProduct.length; i++) {
+                    if(arrProduct[i] == inputP) {
+                        alert('Name da ton tai');
+                        fg = false;
+                        break;
+                    }
+                }
+                if (fg) {
+                    arrProduct.push(inputP);
+                }
+                showDivDisplayAllProduct();
+            }
+        }
+
+        showDivDisplayAllProduct();
+    </script>
+</body>
+</html>
